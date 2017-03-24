@@ -20,7 +20,7 @@ public class Sort {
         String[] raw;
         try {
             Scanner scan = new Scanner(new File("input" + input + ".txt"));
-            System.out.println("Enter desired algorithm: (selection, insertion, merge, or search)");
+            System.out.println("Enter desired sorting  algorithm: (selection, insertion, merge) or search algorithm (linear or binary)");
             interpretInput(parse(scan.nextLine().split(",")));
             fileNum.close();
             scan.close();
@@ -64,7 +64,9 @@ public class Sort {
 
         } else if (algo.equals("merge")) { 
             printArray(mergeSort(arr));
-        } else if (algo.equals("search")) { 
+        } else if (algo.equals("binary")) { 
+            printSearch(binarySearch(mergeSort(arr)));
+        } else if (algo.equals("linear")) { 
             printSearch(linearSearch(arr));
         } else {
             System.out.println("Algorithm not found");
@@ -180,12 +182,16 @@ public class Sort {
         }   
         return result;
     }
+
+    /**
+     *Uses linear search to find a specified value.
+     *
+     *@param arr array of integers to search through
+     *@return whether the element was found
+     */
     public static boolean linearSearch(int[] arr) {
-        Scanner sea = new Scanner(System.in);
-        int target = sea.nextInt();
-        sea.close();
-        ctime = System.currentTimeMillis();
         boolean found = false;
+        int target = selectSearchTarget();
         for (int x : arr ) {
             if (x == target) {
                 found = true;
@@ -193,6 +199,47 @@ public class Sort {
             }
         }
        return found;
+    }
+
+    /**
+     *Uses binary search to find a specified value.
+     *
+     *@param arr sorted array of integers to search through
+     *@return whether the element was found
+     */
+    public static boolean binarySearch(int[] arr) {
+        boolean found = false;
+        int target = selectSearchTarget();
+        int mid = arr.length/2;
+        int half = mid;
+        while (true)
+            if (half < 1) {
+                return found;
+            }else if(target == arr[mid]) {
+                found = true;
+                return found;
+            } else if (target < arr[mid]) {
+                half /= 2;
+                mid -= half;
+            } else { 
+                half /= 2;
+                mid += half;
+            }
+    }
+    
+    /**
+     *Helper method for search algorithms.
+     *Get's target value from user, gets time stamp
+     *
+     *@return value to search for
+     */
+    private static int selectSearchTarget() {
+        System.out.println("Select integer to search for: ");
+        Scanner sea = new Scanner(System.in);
+        int target = sea.nextInt();
+        sea.close();
+        ctime = System.currentTimeMillis();
+        return target;
     }
 
     /**
