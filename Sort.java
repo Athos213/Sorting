@@ -1,4 +1,5 @@
 import java.io.* ;
+import java.lang.Math;
 import java.util.Scanner;
 
 /**
@@ -210,19 +211,19 @@ public class Sort {
     public static boolean binarySearch(int[] arr) {
         boolean found = false;
         int target = selectSearchTarget();
-        int mid = arr.length/2;
-        int half = mid;
+        float  mid = arr.length/2;
+        float half = mid;
         while (true)
-            if (half < 1) {
-                return found;
-            }else if(target == arr[mid]) {
+            if(mid <= arr.length-1 && target == arr[Math.round(mid)] ) {
                 found = true;
                 return found;
-            } else if (target < arr[mid]) {
-                half /= 2;
+            } else if (half < 1 || mid < 1 || mid > arr.length - 1) {
+                return found;
+            } else if (target < arr[Math.round(mid)]) {
+                half = Math.round(half / 2);
                 mid -= half;
             } else { 
-                half /= 2;
+                half = Math.round(half / 2);;
                 mid += half;
             }
     }
