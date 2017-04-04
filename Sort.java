@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  *@author Stanislav Lyakhov
  *
- *@version 1.0.2
+ *@version 1.1.0
  */
 public class Sort {
 
@@ -51,7 +51,7 @@ public class Sort {
      *
      *@param arr parsed input file
      */
-    public static void interpretInput(int[] arr) { 
+    public static void interpretInput(int[] arr) throws FileNotFoundException{ 
         Scanner sc = new Scanner(System.in); //Algorithm selection
         String algo = sc.nextLine(); //Reads algorithm input
 
@@ -59,10 +59,8 @@ public class Sort {
 
         if (algo.equals("insertion")) {
             printArray(insertionSort(arr));
-
         } else if (algo.equals("selection")) { 
             printArray(selectionSort(arr));
-
         } else if (algo.equals("merge")) { 
             printArray(mergeSort(arr));
         } else if (algo.equals("binary")) { 
@@ -115,6 +113,7 @@ public class Sort {
         }
         return arr;
     }
+
     /**
      *Implementation of recursive merge sort.
      *Sorts input file, uses  merge helper method
@@ -180,7 +179,7 @@ public class Sort {
                 i++;
             }
             result =  arr;
-        }   
+        }
         return result;
     }
 
@@ -263,8 +262,68 @@ public class Sort {
         System.out.println(" ");
         System.out.printf("The process took %d milliseconds \n", System.currentTimeMillis() - ctime);
     }
-    public static void printMatrix() {
-        //TODO implement table format
+    public static void printTable(int[] file1, int[] file2, int[] file3) {
+
+        int[] copy1 = new int[file1.length];
+        int[] copy2 = new int[file2.length];
+        int[] copy3 = new int[file3.length];
+        System.arraycopy( file1, 0, copy1, 0, copy1.length );
+        System.arraycopy( file2, 0, copy2, 0, copy2.length );
+        System.arraycopy( file3, 0, copy3, 0, copy3.length );
+
+        System.out.print("                        input1   input2    input3 \n");
+
+        System.out.print("Selection sort  ");
+        ctime = System.currentTimeMillis();
+        int[] a = selectionSort(copy1);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        ctime = System.currentTimeMillis();
+        int[] b = selectionSort(copy2);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        ctime = System.currentTimeMillis();
+        int[] c = selectionSort(copy3);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        System.out.print("\n");
+
+        System.arraycopy( file1, 0, copy1, 0, copy1.length );
+        System.arraycopy( file2, 0, copy2, 0, copy2.length );
+        System.arraycopy( file3, 0, copy3, 0, copy3.length );
+
+        System.out.print("Insertion sort  ");
+        ctime = System.currentTimeMillis();
+        insertionSort(copy1);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        ctime = System.currentTimeMillis();
+        insertionSort(copy2);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        ctime = System.currentTimeMillis();
+        insertionSort(copy3);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        System.out.print("\n");
+
+        System.arraycopy( file1, 0, copy1, 0, copy1.length );
+        System.arraycopy( file2, 0, copy2, 0, copy2.length );
+        System.arraycopy( file3, 0, copy3, 0, copy3.length );
+        System.out.print("Merge sort      ");
+
+        ctime = System.currentTimeMillis();
+        mergeSort(file1);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        ctime = System.currentTimeMillis();
+        mergeSort(file2);
+        System.out.print("        ");
+        System.out.print(System.currentTimeMillis() - ctime);
+        ctime = System.currentTimeMillis();
+        mergeSort(file3);
+        System.out.print("         ");
+        System.out.print(System.currentTimeMillis() - ctime);
     }
     /**
      *Formats search algorithm output.

@@ -1,0 +1,4 @@
+                        input1   input2    input3    input4
+Selection sort          6        57        3780      540369
+Insertion sort          5        63        5165      590241
+Merge sort              1        3         26        263
